@@ -1,4 +1,4 @@
-package com.example.product_service;
+package com.admincore.microservice.product;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
