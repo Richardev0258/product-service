@@ -13,7 +13,7 @@ public class JsonApiResponse<T> {
     @Getter
     @AllArgsConstructor
     static class JsonApiData<T> {
-        private final String type = "resource";
+        private static final String TYPE = "resource";
         private final T attributes;
     }
 
