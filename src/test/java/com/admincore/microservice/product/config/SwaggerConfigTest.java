@@ -3,9 +3,10 @@ package com.admincore.microservice.product.config;
 import com.admincore.microservice.product.config.SwaggerConfig;
 import io.swagger.v3.oas.models.OpenAPI;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+@ActiveProfiles("test")
 public class SwaggerConfigTest {
     @Test
     void testOpenAPIBean() {

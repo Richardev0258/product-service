@@ -1,8 +1,10 @@
 package com.admincore.microservice.product.exception;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.test.context.ActiveProfiles;
 
+import static org.junit.jupiter.api.Assertions.*;
+@ActiveProfiles("test")
 public class ProductNotFoundExceptionTest {
     @Test
     void shouldStoreMessage() {
