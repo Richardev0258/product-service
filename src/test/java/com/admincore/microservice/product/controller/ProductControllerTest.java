@@ -1,6 +1,5 @@
 package com.admincore.microservice.product.controller;
 
-import com.admincore.microservice.product.dto.JsonApiResponse;
 import com.admincore.microservice.product.dto.ProductRequest;
 import com.admincore.microservice.product.dto.ProductResponse;
 import com.admincore.microservice.product.service.impl.ProductServiceImpl;
@@ -46,7 +45,7 @@ public class ProductControllerTest {
         Mockito.when(productServiceImpl.create(any(ProductRequest.class)))
                 .thenReturn(response);
 
-        mockMvc.perform(post("/api/products")
+        mockMvc.perform(post("/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
@@ -60,7 +59,7 @@ public class ProductControllerTest {
 
         Mockito.when(productServiceImpl.getById(eq(1L))).thenReturn(response);
 
-        mockMvc.perform(get("/api/products/1"))
+        mockMvc.perform(get("/products/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.attributes.id").value(1L))
                 .andExpect(jsonPath("$.data.attributes.name").value("Phone"));
@@ -75,7 +74,7 @@ public class ProductControllerTest {
 
         Mockito.when(productServiceImpl.getAll()).thenReturn(responseList);
 
-        mockMvc.perform(get("/api/products"))
+        mockMvc.perform(get("/products"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.attributes.length()").value(2))
                 .andExpect(jsonPath("$.data.attributes[0].name").value("Phone"))

@@ -44,7 +44,7 @@ class ProductIntegrationTest {
     void shouldCreateProductSuccessfully() throws Exception {
         ProductRequest request = new ProductRequest("Test", 800.00, "Test Description");
 
-        mockMvc.perform(post("/api/products")
+        mockMvc.perform(post("/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
@@ -62,14 +62,14 @@ class ProductIntegrationTest {
 
         Product saved = repository.save(product);
 
-        mockMvc.perform(get("/api/products/{id}", saved.getId()))
+        mockMvc.perform(get("/products/{id}", saved.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.attributes.name").value("Laptop"));
     }
 
     @Test
     void shouldReturn404ForMissingProduct() throws Exception {
-        mockMvc.perform(get("/api/products/9999"))
+        mockMvc.perform(get("/products/9999"))
                 .andExpect(status().isNotFound());
     }
 
@@ -93,7 +93,7 @@ class ProductIntegrationTest {
         System.out.println("Productos guardados en base de datos: " + repository.findAll().size());
         repository.findAll().forEach(p -> System.out.println(p.getId() + " - " + p.getName()));
 
-        mockMvc.perform(get("/api/products"))
+        mockMvc.perform(get("/products"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.attributes.length()").value(2));
