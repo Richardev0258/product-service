@@ -33,14 +33,14 @@ public class ProductController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Producto creado exitosamente",
-                    content = @Content(mediaType = "application/vnd.api+json",
+                    content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = JsonApiResponse.class))),
             @ApiResponse(responseCode = "400", description = "Solicitud incorrecta. Verifique los datos enviados.",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.",
                     content = @Content)
     })
-    @PostMapping(consumes = "application/json", produces = "application/vnd.api+json")
+    @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<JsonApiResponse<ProductResponse>> create(@RequestBody @Valid ProductRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new JsonApiResponse<>(productServiceImpl.create(request)));
@@ -52,14 +52,14 @@ public class ProductController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Producto encontrado",
-                    content = @Content(mediaType = "application/vnd.api+json",
+                    content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = JsonApiResponse.class))),
             @ApiResponse(responseCode = "404", description = "Producto no encontrado.",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.",
                     content = @Content)
     })
-    @GetMapping(value = "/{id}", produces = "application/vnd.api+json")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<JsonApiResponse<ProductResponse>> get(
             @Parameter(description = "ID del producto a consultar") @PathVariable Long id) {
         return ResponseEntity.ok(new JsonApiResponse<>(productServiceImpl.getById(id)));
@@ -71,12 +71,12 @@ public class ProductController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de productos obtenida exitosamente",
-                    content = @Content(mediaType = "application/vnd.api+json",
+                    content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = JsonApiResponse.class))),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor.",
                     content = @Content)
     })
-    @GetMapping(produces = "application/vnd.api+json")
+    @GetMapping(produces = "application/json")
     public ResponseEntity<JsonApiResponse<List<ProductResponse>>> getAll() {
         return ResponseEntity.ok(new JsonApiResponse<>(productServiceImpl.getAll()));
     }
