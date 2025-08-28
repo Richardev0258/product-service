@@ -32,6 +32,46 @@ Microservicio encargado de la gestión de productos. Permite crear, obtener y li
     - **H2 (Test)**: `jdbc:h2:mem:productdb`
     - **SQLite (Local)**: Se crea un archivo `product.db` en el directorio de ejecución.
 
+## 📐 Diagrama
+```mermaid
+classDiagram
+class Product {
+-Long id
+-String name
+-BigDecimal price
+-String description
++Long getId()
++String getName()
++BigDecimal getPrice()
++String getDescription()
++void setName(String)
++void setPrice(BigDecimal)
++void setDescription(String)
+}
+
+    class ProductService {
+        +Product createProduct(Product)
+        +Product getProductById(Long)
+        +List~Product~ getAllProducts()
+    }
+    
+    class ProductController {
+        +ResponseEntity~Product~ createProduct(Product)
+        +ResponseEntity~Product~ getProductById(Long)
+        +ResponseEntity~List~Product~~ getAllProducts()
+    }
+    
+    class ProductRepository {
+        +Optional~Product~ findById(Long)
+        +List~Product~ findAll()
+        +Product save(Product)
+    }
+    
+    ProductController --> ProductService
+    ProductService --> ProductRepository
+    ProductService --> Product
+    ProductRepository --> Product
+```
 ## 🚀 Instrucciones de Ejecución
 
 ### 🐳 Con Docker
