@@ -51,3 +51,6 @@ management:
   endpoint:
     health:
       show-details: always
+
+security:
+  api-key: PRODUCT_SERVICE_KEY

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -35,6 +36,9 @@ class ProductIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Value("${security.api-key}")
+    private String validApiKey;
+
     @BeforeEach
     void cleanDb() {
         repository.deleteAll();
@@ -46,7 +50,8 @@ class ProductIntegrationTest {
 
         mockMvc.perform(post("/products")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(request))
+                        .header("x-api-key", validApiKey))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.data.attributes.name").value("Test"));
 
@@ -62,14 +67,16 @@ class ProductIntegrationTest {
 
         Product saved = repository.save(product);
 
-        mockMvc.perform(get("/products/{id}", saved.getId()))
+        mockMvc.perform(get("/products/{id}", saved.getId())
+                        .header("x-api-key", validApiKey))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.attributes.name").value("Laptop"));
     }
 
     @Test
     void shouldReturn404ForMissingProduct() throws Exception {
-        mockMvc.perform(get("/products/9999"))
+        mockMvc.perform(get("/products/9999")
+                        .header("x-api-key", validApiKey))
                 .andExpect(status().isNotFound());
     }
 
@@ -93,7 +100,8 @@ class ProductIntegrationTest {
         System.out.println("Productos guardados en base de datos: " + repository.findAll().size());
         repository.findAll().forEach(p -> System.out.println(p.getId() + " - " + p.getName()));
 
-        mockMvc.perform(get("/products"))
+        mockMvc.perform(get("/products")
+                        .header("x-api-key", validApiKey))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.attributes.length()").value(2));
