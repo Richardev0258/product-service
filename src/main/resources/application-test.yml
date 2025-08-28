@@ -14,3 +14,7 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: true
+
+
+  security:
+    api-key: PRODUCT_SERVICE_KEY

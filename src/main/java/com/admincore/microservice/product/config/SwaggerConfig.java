@@ -21,12 +21,12 @@ public class SwaggerConfig {
                         .description("API para la gestión de productos. Permite crear, obtener y listar productos.")
                         .version("v1.0.0")
                         .contact(new Contact()
-                                .name("Tu Nombre o Equipo")
-                                .url("https://tu-web.com")
-                                .email("tu-email@example.com"))
+                                .name("Ricardo Andrés Marín Pinilla")
+                                .url("https://www.linkedin.com/in/ricardo-andres-marin-pinilla/")
+                                .email("ricardomarin0258@gmail.com"))
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")))
                 .servers(List.of(
-                        new Server().url("http://localhost:8081/api").description("Servidor de Desarrollo")
+                        new Server().url("http://localhost:8081/").description("Servidor de Desarrollo")
                 ));
     }
 }
