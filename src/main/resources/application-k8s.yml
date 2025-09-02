@@ -1,0 +1,26 @@
+# application-k8s.yml para product-service
+spring:
+  datasource:
+    url: jdbc:sqlite:/app/data/product.db
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: DEBUG
+
+server:
+  port: 8081
+  servlet:
+    context-path: /api
+
+security:
+  api-key: ${API_KEY}
